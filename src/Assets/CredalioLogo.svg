@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="none">
+  <defs>
+    <!-- Background Gradient for Badge -->
+    <linearGradient id="credalioGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="45%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+
+    <!-- Badge Border Bevel -->
+    <linearGradient id="credalioBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Text Gradient for "alio" -->
+    <linearGradient id="alioGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="60%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+
+    <!-- Tassel Accent Gradient -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+
+    <!-- Shadow Filter -->
+    <filter id="badgeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#4f46e5" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Left Icon Emblem -->
+  <g transform="translate(8, 8)" filter="url(#badgeShadow)">
+    <rect width="44" height="44" rx="13" fill="url(#credalioGrad)" />
+    <rect x="0.5" y="0.5" width="43" height="43" rx="12.5" stroke="url(#credalioBorder)" stroke-width="1" />
+    
+    <!-- 3D Mortarboard / Knowledge Crown -->
+    <path d="M22 13L35 19.5L22 26L9 19.5L22 13Z" fill="#FFFFFF"/>
+    <path d="M14 23.2V29.5C14 32.2 17.5 34.8 22 34.8C26.5 34.8 30 32.2 30 29.5V23.2L22 27.5L14 23.2Z" fill="#FFFFFF" fill-opacity="0.92"/>
+    
+    <!-- Tassel / Spark Ribbon -->
+    <circle cx="34" cy="23.5" r="2.5" fill="url(#accentGrad)"/>
+    <path d="M34 26V32" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  </g>
+
+  <!-- Modern Brand Wordmark -->
+  <text x="62" y="35" font-family="'Poppins', 'Inter', -apple-system, sans-serif" font-size="24" font-weight="800" fill="#0f172a" letter-spacing="-0.6">
+    Cred<tspan fill="url(#alioGrad)">alio</tspan>
+  </text>
+  
+  <!-- Sub-label / Tagline -->
+  <text x="63" y="47" font-family="'Inter', -apple-system, sans-serif" font-size="8.5" font-weight="600" fill="#64748b" letter-spacing="2.2">
+    LEARNING PLATFORM
+  </text>
+</svg>

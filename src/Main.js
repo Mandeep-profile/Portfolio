@@ -6,26 +6,24 @@ import PDF from "./Components/About/PDF";
 import Skills from "./Components/Skill/Skills";
 import Experience from "./Components/Experience/Experience";
 import Projects from "./Components/Projects/Projects";
+import BuildProject from "./Components/BuildProject/BuildProject";
 import Footer from "./Components/Footer/Footer";
 
 const Main = () => {
   const [showResume, setShowResume] = useState(false);
+
   return (
-    <>
-      {!showResume ? (
-        <div>
-          <Navbar />
-          <Home />
-          <About showResume={showResume} setShowResume={setShowResume} />
-          <Skills />
-          <Experience />
-          <Projects />
-          <Footer />
-        </div>
-      ) : (
-        <PDF />
-      )}
-    </>
+    <div>
+      <Navbar />
+      <Home />
+      <About showResume={showResume} setShowResume={setShowResume} />
+      <Skills />
+      <Experience />
+      <Projects />
+      <BuildProject />
+      <Footer />
+      {showResume && <PDF onClose={() => setShowResume(false)} />}
+    </div>
   );
 };
 

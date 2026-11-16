@@ -1,85 +1,522 @@
-.About-main-div {
-    width: 100%;
-    height: 400px;
+.about-section {
+  width: 100%;
+  padding: 5.5rem 1.5rem;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  transition: background 0.3s ease;
+
+  .about-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background-color: var(--textBlue);
-    .about-div {
-      width: 60%;
+    text-align: center;
+  }
+
+  .about-header {
+    max-width: 820px;
+    margin: 0 auto;
+
+    .about-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-title {
+      font-size: clamp(1.75rem, 4vw, 2.65rem);
+      font-weight: 700;
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+      margin: 0 0 1.25rem 0;
+    }
+
+    .about-bio {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      line-height: 1.75;
       margin: 0 auto;
-      color: var(--white);
-      h1 {
-        color: var(--white);
-        text-align: center;
-        margin-bottom: 2rem;
+      font-weight: 400;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .about-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin: 3rem auto;
+    width: 100%;
+    max-width: 980px;
+    box-sizing: border-box;
+
+    .stat-card {
+      border-radius: 16px;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+      box-sizing: border-box;
+
+      .stat-number {
+        font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .stat-label {
+        font-size: 0.84rem;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.35;
+      }
+    }
+  }
+
+  .about-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+
+    .pillar-card {
+      border-radius: 20px;
+      padding: 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
+      .pillar-icon-box {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+
+        .pillar-icon {
+          font-size: 1.6rem;
+          line-height: 1;
+        }
+      }
+
+      .pillar-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0 0 0.75rem 0;
+        letter-spacing: -0.01em;
+        line-height: 1.3;
+      }
+
+      .pillar-description {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        margin: 0;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .about-cta-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .about-resume-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.9rem 2.5rem;
+      border-radius: 9999px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+      .btn-icon {
+        transition: transform 0.2s ease;
+      }
+
+      &:hover {
+        .btn-icon {
+          transform: translateY(-2px);
+        }
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  &.about-light {
+    background: linear-gradient(135deg, #6e07f3 0%, #4a00b4 100%);
+    color: #ffffff;
+
+    .about-pill {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      color: #ffffff;
+    }
+
+    .about-title {
+      color: #ffffff;
+    }
+
+    .about-bio {
+      color: rgba(255, 255, 255, 0.94);
+
+      strong {
+        color: #5be9b9;
+      }
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.16);
+        transform: translateY(-3px);
+        border-color: rgba(91, 233, 185, 0.5);
+      }
+
+      .stat-number {
+        color: #5be9b9;
+      }
+
+      .stat-label {
+        color: #ffffff;
+        opacity: 0.92;
+      }
+    }
+
+    .pillar-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.14);
+        transform: translateY(-4px);
+        border-color: rgba(91, 233, 185, 0.5);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+      }
+
+      .pillar-icon-box {
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+
+      .pillar-title {
+        color: #ffffff;
+      }
+
+      .pillar-description {
+        color: rgba(255, 255, 255, 0.88);
+      }
+    }
+
+    .about-resume-btn {
+      background: #ffffff;
+      color: #6e07f3;
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        background: #f8fafc;
+        transform: translateY(-3px);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+      }
+    }
+  }
+
+  &.about-dark {
+    background: linear-gradient(135deg, #150f33 0%, #09061a 100%);
+    border-top: 1px solid rgba(150, 151, 227, 0.2);
+    border-bottom: 1px solid rgba(150, 151, 227, 0.2);
+    color: #ffffff;
+
+    .about-pill {
+      background: rgba(91, 233, 185, 0.12);
+      border: 1px solid rgba(91, 233, 185, 0.35);
+      color: #5be9b9;
+    }
+
+    .about-title {
+      color: #ffffff;
+    }
+
+    .about-bio {
+      color: #cbd5e1;
+
+      strong {
+        color: #5be9b9;
+      }
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(150, 151, 227, 0.18);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-3px);
+        border-color: rgba(91, 233, 185, 0.45);
+      }
+
+      .stat-number {
+        color: #5be9b9;
+      }
+
+      .stat-label {
+        color: #94a3b8;
+      }
+    }
+
+    .pillar-card {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(150, 151, 227, 0.18);
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-4px);
+        border-color: rgba(91, 233, 185, 0.45);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+      }
+
+      .pillar-icon-box {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(150, 151, 227, 0.25);
+      }
+
+      .pillar-title {
+        color: #ffffff;
+      }
+
+      .pillar-description {
+        color: #94a3b8;
+      }
+    }
+
+    .about-resume-btn {
+      background: linear-gradient(135deg, #6e07f3 0%, #7c3aed 100%);
+      color: #ffffff;
+      border: 1.5px solid rgba(150, 151, 227, 0.35);
+      box-shadow: 0 8px 24px rgba(110, 7, 243, 0.4);
+
+      &:hover {
+        background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 14px 32px rgba(110, 7, 243, 0.55);
+      }
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .about-section {
+    padding: 4.5rem 1.25rem;
+
+    .about-stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2.5rem auto;
+    }
+
+    .about-pillars-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.75rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 3.5rem 1rem;
+
+    .about-stats-grid {
+      gap: 0.75rem;
+      margin: 2rem auto;
+
+      .stat-card {
+        padding: 1.15rem 0.75rem;
+
+        .stat-number {
+          font-size: 1.75rem;
+        }
+
+        .stat-label {
+          font-size: 0.76rem;
+        }
+      }
+    }
+
+    .about-pillars-grid {
+      gap: 1rem;
+      margin-bottom: 2.25rem;
+
+      .pillar-card {
+        padding: 1.5rem 1.25rem;
+
+        .pillar-icon-box {
+          width: 44px;
+          height: 44px;
+          margin-bottom: 1rem;
+
+          .pillar-icon {
+            font-size: 1.35rem;
+          }
+        }
+
+        .pillar-title {
+          font-size: 1.15rem;
+        }
+
+        .pillar-description {
+          font-size: 0.88rem;
+        }
+      }
+    }
+
+    .about-cta-row {
+      .about-resume-btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.85rem 1.75rem;
+      }
+    }
+  }
+}
+
+.pdf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.82);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(4px);
+
+  .pdf-toolbar {
+    height: 55px;
+    background-color: #1a162b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+
+    .pdf-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 0.6rem;
+
+      .pdf-btn {
+        padding: 0.4rem 0.85rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        border: none;
+        transition: all 0.2s ease;
         font-family: "Poppins", sans-serif;
       }
-      .site-light-theme {
-        color: var(--textBlue);
+
+      .download-btn {
+        background-color: var(--textBlue);
+        color: #fff;
+
+        &:hover {
+          opacity: 0.9;
+        }
       }
 
-      .site-dark-theme {
-        color: var(--darkTheme);
+      .tab-btn {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #fff;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.25);
+        }
       }
-      p {
-        text-align: center;
-        font-family: "Nota", sans-serif;
-      }
-      .about-button-div {
-        display: flex;
-        justify-content: center;
-        margin-top: 2rem;
-        .resume-button {
-          width: 150px;
-          height: 50px;
-          border-width: 2px;
-          border: 2px solid var(--textBlue);
-          color: var(--textBlue);
-          font-weight: 500;
-          background-color: var(--white);
-          font-size: 18px;
-          border-radius: 25px;
-          cursor: pointer;
+
+      .close-btn {
+        background-color: #ef412d;
+        color: #fff;
+        font-weight: 600;
+
+        &:hover {
+          background-color: #d63321;
         }
       }
     }
   }
 
-  @media (max-width: 800px){
-    .About-main-div{
-        height: 450px;
-        .about-div{
-            width: 70%;
-            h1{
-                font-size: 1.75rem;
-            }
+  .pdf-content {
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 55px);
+  }
+}
+
+@media (max-width: 520px) {
+  .pdf-modal-overlay {
+    .pdf-toolbar {
+      padding: 0 0.75rem;
+
+      .pdf-title {
+        font-size: 0.8rem;
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .pdf-actions {
+        gap: 0.35rem;
+
+        .pdf-btn {
+          padding: 0.32rem 0.55rem;
+          font-size: 0.75rem;
         }
+      }
     }
   }
-
-  @media (max-width: 600px){
-    .About-main-div{
-        height: 500px;
-        .about-div{
-            width: 80%;
-            h1{
-                font-size: 1.65rem;
-            }
-        }
-    }
-  }
-
-  @media (max-width: 400px){
-    .About-main-div{
-        height: 550px;
-        .about-div{
-            width: 80%;
-            h1{
-                font-size: 1.5rem;
-            }
-        }
-    }
-  }
-
+}

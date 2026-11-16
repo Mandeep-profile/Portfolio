@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Logo from "../../Assets/Logo.png";
+import AppLogo from "../../Assets/AppLogo.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { ThemeActions } from "../../store/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun, faBars } from "@fortawesome/fontawesome-free-solid";
-import ClearIcon from "@mui/icons-material/Clear";
+import { faMoon, faSun, faBars, faTimes } from "@fortawesome/fontawesome-free-solid";
 import "./Navbar.scss";
 
 const NavBar = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [NavOptions, setNavOptions] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const isSelectedTheme = useSelector(
     (state) => state.selectedTheme.isThemeSelected
   );
@@ -19,7 +18,8 @@ const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const btnText = location.pathname === "/contact" ? "Close" : "Contact";
+  const isContactPage = location.pathname === "/contact";
+  const btnText = isContactPage ? "Close" : "Contact";
 
   const handleDarkMode = () => {
     if (isSelectedTheme) {
@@ -33,120 +33,223 @@ const NavBar = () => {
     }
   };
 
-  useEffect(() => {
-    const handleResizeWindow = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResizeWindow);
-
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
-  }, []);
-
-  const handleNavBar = () => {
-    setNavOptions(!NavOptions);
+  const handleLogoClick = () => {
+    if (location.pathname !== "/") {
+      navigate("/");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    setMobileMenuOpen(false);
   };
 
-  const handleClose = () => {
-    if (location.pathname === "/contact") {
+  const handleNavClick = (sectionId) => {
+    if (location.pathname !== "/") {
+      navigate("/", { state: { scrollTo: sectionId } });
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+    setMobileMenuOpen(false);
+  };
+
+  const handleContactClick = () => {
+    setMobileMenuOpen(false);
+    if (isContactPage) {
       navigate("/");
+    } else {
+      navigate("/contact");
     }
   };
 
+  useEffect(() => {
+    if (location.pathname === "/" && location.state?.scrollTo) {
+      const targetId = location.state.scrollTo;
+      const element = document.getElementById(targetId);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 120);
+      }
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
+    const sections = ["projects", "experience", "skills", "about", "home"];
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 140;
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sectionId);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [location.pathname]);
+
+  const navItems = [
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
+  ];
+
   return (
-    <div>
-      <div className="home-nav-main Responsive-nav-main">
-        <div>
-          <img src={Logo} className="logo" alt="logo" />
+    <header className={`navbar-header ${isSelectedTheme ? "navbar-light" : "navbar-dark"}`}>
+      <div className="navbar-container">
+        <div className="navbar-brand" onClick={handleLogoClick} aria-label="Home" title="Home">
+          <img src={AppLogo} className="logo" alt="logo" />
         </div>
-        {windowWidth < 1000 ? (
-          <div>
-            {location.pathname === "/" && NavOptions ? (
-              <FontAwesomeIcon
-                className={
-                  isSelectedTheme ? "svg-inline--fa" : "svg-inline--fa-new"
-                }
-                icon={faBars}
-                onClick={handleNavBar}
-              />
-            ) : (
-              <span onClick={handleClose}>
-                <ClearIcon
-                  className={
-                    isSelectedTheme
-                      ? "css-i4bv87-MuiSvgIcon-root"
-                      : "css-i4bv87-MuiSvgIcon-root-new"
-                  }
-                  onClick={handleNavBar}
-                />
-              </span>
-            )}
-          </div>
-        ) : (
-          <div className="homeNavButtons">
-            <FontAwesomeIcon
-              icon={faMoon}
-              className={`mode-icon ${
-                !isSelectedTheme ? "svg-inline--fa" : "moon-logo"
+
+        <nav className="navbar-desktop-nav">
+          {!isContactPage && (
+            <ul className="nav-links">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <button
+                    className={`nav-link-btn ${
+                      activeSection === item.id ? "active" : ""
+                    } ${isSelectedTheme ? "link-light" : "link-dark"}`}
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="navbar-actions">
+            <div
+              className={`theme-toggle-pill ${
+                !isSelectedTheme ? "theme-toggle-pill-dark" : ""
               }`}
-              onClick={handleDarkMode}
-            />
-            <FontAwesomeIcon
-              icon={faSun}
-              className={`mode-icon ${
-                isSelectedTheme
-                  ? "selected-theme-icon"
-                  : "css-i4bv87-MuiSvgIcon-root-new"
-              }`}
-              onClick={handleLightMode}
-            />
+            >
+              <button
+                type="button"
+                className={`theme-btn ${
+                  !isSelectedTheme ? "active-moon" : ""
+                }`}
+                onClick={handleDarkMode}
+                aria-label="Switch to dark mode"
+                title="Dark theme"
+              >
+                <FontAwesomeIcon icon={faMoon} />
+              </button>
+              <button
+                type="button"
+                className={`theme-btn ${
+                  isSelectedTheme ? "active-sun" : ""
+                }`}
+                onClick={handleLightMode}
+                aria-label="Switch to light mode"
+                title="Light theme"
+              >
+                <FontAwesomeIcon icon={faSun} />
+              </button>
+            </div>
+
             <button
-              className="contact-button"
-              onClick={() =>
-                location.pathname === "/contact"
-                  ? navigate("/")
-                  : navigate("/contact")
-              }
+              className={`contact-button ${
+                !isSelectedTheme ? "contact-button-dark" : ""
+              }`}
+              onClick={handleContactClick}
             >
               {btnText}
             </button>
           </div>
-        )}
-      </div>
-      {windowWidth < 1000 && !NavOptions && (
-        <div className="homeNavButtons responsiveNavButtons">
-          <div className="NavIcons">
-            <FontAwesomeIcon
-              icon={faMoon}
-              className={`mode-icon ${
-                !isSelectedTheme ? "selected-theme-icon" : "mode-icon:hover"
+        </nav>
+
+        <div className="navbar-mobile-toggle">
+          <div
+            className={`theme-toggle-pill mobile-pill ${
+              !isSelectedTheme ? "theme-toggle-pill-dark" : ""
+            }`}
+          >
+            <button
+              type="button"
+              className={`theme-btn ${
+                !isSelectedTheme ? "active-moon" : ""
               }`}
               onClick={handleDarkMode}
-            />
-            <FontAwesomeIcon
-              icon={faSun}
-              className={`mode-icon ${
-                isSelectedTheme ? "selected-theme-icon" : ""
+              aria-label="Switch to dark mode"
+              title="Dark theme"
+            >
+              <FontAwesomeIcon icon={faMoon} />
+            </button>
+            <button
+              type="button"
+              className={`theme-btn ${
+                isSelectedTheme ? "active-sun" : ""
               }`}
               onClick={handleLightMode}
-            />
+              aria-label="Switch to light mode"
+              title="Light theme"
+            >
+              <FontAwesomeIcon icon={faSun} />
+            </button>
           </div>
-          <div>
+
+          <button
+            type="button"
+            className={`mobile-menu-btn ${
+              isSelectedTheme ? "btn-light" : "btn-dark"
+            }`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <FontAwesomeIcon icon={mobileMenuOpen ? faTimes : faBars} />
+          </button>
+        </div>
+      </div>
+
+      {mobileMenuOpen && (
+        <div
+          className={`navbar-mobile-dropdown ${
+            isSelectedTheme ? "dropdown-light" : "dropdown-dark"
+          }`}
+        >
+          {!isContactPage && (
+            <ul className="mobile-nav-links">
+              {navItems.map((item) => (
+                <li key={item.id}>
+                  <button
+                    className={`mobile-nav-link-btn ${
+                      activeSection === item.id ? "active" : ""
+                    } ${isSelectedTheme ? "link-light" : "link-dark"}`}
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="mobile-actions">
             <button
-              className="contact-button"
-              onClick={() =>
-                location.pathname === "/contact"
-                  ? navigate("/")
-                  : navigate("/contact")
-              }
+              className={`contact-button ${
+                !isSelectedTheme ? "contact-button-dark" : ""
+              }`}
+              onClick={handleContactClick}
             >
               {btnText}
             </button>
           </div>
         </div>
       )}
-    </div>
+    </header>
   );
 };
 
